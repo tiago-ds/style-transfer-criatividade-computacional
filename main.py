@@ -24,7 +24,7 @@ def list_files():
 @api.route("/files/<path:path>")
 def get_file(path):
     """Download a file."""
-    return send_from_directory(UPLOAD_DIRECTORY, path, as_attachment=True)
+    return send_from_directory(EXPORT_DIRECTORY, path, as_attachment=True)
 
 
 @api.route("/files/<filename>", methods=["POST"])
