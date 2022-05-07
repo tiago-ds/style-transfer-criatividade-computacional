@@ -1,0 +1,6 @@
+/venv
+/api_files
+/results/*
+/pretrained_models
+/.idea
+*.exe

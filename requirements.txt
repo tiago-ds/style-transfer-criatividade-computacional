@@ -1,0 +1,6 @@
+spleeter
+pydub
+librosa
+kaggle
+gdown
+IPython
