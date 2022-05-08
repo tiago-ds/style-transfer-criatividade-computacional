@@ -118,6 +118,3 @@ def kpopify(sample_file_name):
     os.remove(f"{sample_file_name}_corrected.wav")
     shutil.rmtree("./output")
     shutil.rmtree("./api_files")
-
-
-kpopify("tuftuf")
