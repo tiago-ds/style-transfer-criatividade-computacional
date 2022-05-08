@@ -44,11 +44,11 @@ def post_file(filename):
 
 
 @api.route('/kpopify')
-def kpopify(filename):
+def kpopify(filename, genre):
     """Transforms the music"""
-    kpopify(filename)
+    kpopify(filename, genre)
     return "OK", 200
-    
+
 
 if __name__ == "__main__":
     api.run(debug=True, port=8000)
