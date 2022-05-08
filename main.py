@@ -2,8 +2,10 @@ import os
 
 from flask import Flask, request, abort, jsonify, send_from_directory
 
-UPLOAD_DIRECTORY = "./api_files/"
-EXPORT_DIRECTORY = "./results/"
+from kpopify import kpopify
+
+UPLOAD_DIRECTORY = "./kpopify/api_files/"
+EXPORT_DIRECTORY = "./kpopify/results/"
 
 if not os.path.exists(UPLOAD_DIRECTORY):
     os.makedirs(UPLOAD_DIRECTORY)
@@ -40,6 +42,13 @@ def post_file(filename):
     # Return 201 CREATED
     return "OK", 201
 
+
+@api.route('/kpopify')
+def kpopify(filename):
+    """Transforms the music"""
+    kpopify(filename)
+    return "OK", 200
+    
 
 if __name__ == "__main__":
     api.run(debug=True, port=8000)
