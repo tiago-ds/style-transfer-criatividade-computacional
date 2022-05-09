@@ -10,7 +10,7 @@ def execute_command(command):
 def kpopify(sample_file_name, target_genre):
     # Descobrindo o tempo da música do usuário
     # O warning é normal, pra sinalizar que tá lendo um .mp3 e não um .wav
-    sample_y, sample_sr = librosa.load(f'api_files/{sample_file_name}.mp3')
+    sample_y, sample_sr = librosa.load(f'./api_files/{sample_file_name}.mp3')
     sample_tempo, beat_frames = librosa.beat.beat_track(y=sample_y, sr=sample_sr)
 
     # Pequena correção para não ficar um float
@@ -130,18 +130,19 @@ def kpopify(sample_file_name, target_genre):
     base_other = AudioSegment.from_file(f"./output/{base_file_name}_corrected/other.wav", format="wav")
 
     # Aumentar um pouco a voz da música
-    louder_vocals = sample_vocals + 5 # 5dB mais alto
+    if(target_genre == "kpop"):
+        sample_vocals = sample_vocals + 5 # 5dB mais alto
+
     base_bass += 8
 
     # Fazer o overlay das músicas
     result_1 = base_bass.overlay(sample_drums, position=0)
     result_2 = result_1.overlay(base_other, position=0)
-    result_3 = result_2 - 10
     result = result_2.overlay(sample_vocals, position=0)
 
     # Export do resultado final
-    result.export(f"./results/{base_file_name}_kpopified.mp3", format="mp3")
-    print(f"New file created {sample_file_name}_kpopified.mp3.")
+    result.export(f"./results/{sample_file_name}_final.mp3", format="mp3")
+    print(f"New file created {sample_file_name}_final.mp3.")
 
     print(f"{sample_file_name} was successfully kpopified, deleting extra files created...")
     os.remove(f"{base_file_name}.mp3")
