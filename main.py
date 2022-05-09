@@ -1,6 +1,7 @@
 import os
 
 from flask import Flask, request, abort, jsonify, send_from_directory
+from flask_cors import CORS
 
 from kpopify import kpopify as stilyze
 
@@ -10,7 +11,8 @@ EXPORT_DIRECTORY = "./results/"
 if not os.path.exists(UPLOAD_DIRECTORY):
     os.makedirs(UPLOAD_DIRECTORY)
 
-api = Flask(__name__)
+api = Flask("kpopifier")
+CORS(api)
 
 @api.route("/files")
 def list_files():
@@ -49,6 +51,8 @@ def kpopify(filename, genre):
     stilyze.kpopify(filename, genre)
     return "OK", 200
 
+def get_webservice():
+    return api
 
 if __name__ == "__main__":
     api.run(debug=True, port=8000)
